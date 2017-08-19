@@ -22,3 +22,10 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+target
+.idea
+*.iml
+mvnw
+.mvn
+mvnw.cmd
