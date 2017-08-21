@@ -13,9 +13,13 @@ public class UserDAOImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public List<Users> listUsers() {
-        Session session = sessionFactory.openSession();
+        Session session = this.sessionFactory.openSession();
         session.beginTransaction();
         List<Users> userList = session.createQuery("FROM User").list();
         session.beginTransaction().commit();
@@ -25,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Users getUserById(long id) {
-        Session session = sessionFactory.openSession();
+        Session session = this.sessionFactory.openSession();
         session.beginTransaction();
         Users user = (Users) session.get(Users.class, id);
         session.getTransaction().commit();
@@ -35,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void removeUser(long id) {
-        Session session = sessionFactory.openSession();
+        Session session = this.sessionFactory.openSession();
         session.beginTransaction();
         Users user = (Users) session.get(Users.class, id);
         if (user != null) {
@@ -47,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void addUser(Users user) {
-        Session session = sessionFactory.openSession();
+        Session session = this.sessionFactory.openSession();
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
@@ -56,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updateUser(Users user) {
-        Session session = sessionFactory.openSession();
+        Session session = this.sessionFactory.openSession();
         session.beginTransaction();
         session.update(user);
         session.getTransaction().commit();

@@ -4,22 +4,21 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "rolers")
+@Table(name = "roles")
 public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)// autoincrement
     @Id
     private long id;
     private String name;
-    @ManyToMany(mappedBy="roles")
+    @ManyToMany(mappedBy = "roles")
     private List<Users> users;
 
     public Roles() {
     }
 
-    public Roles(String name, List<Users> users) {
+    public Roles(String name) {
         this.name = name;
-        this.users = users;
-    }
+         }
 
     public Long getId() {
         return id;
