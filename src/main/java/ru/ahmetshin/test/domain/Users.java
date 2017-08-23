@@ -12,11 +12,10 @@ public class Users {
     private String name;
     private String login;
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="user_roles",
-            joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id"))
+            name = "user_roles", joinColumns = @JoinColumn(name = "user_id", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false, updatable = false))
     private List<Roles> roles;
 
     public Users() {
@@ -68,4 +67,20 @@ public class Users {
     public void setRoles(List<Roles> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Users users = (Users) o;
+
+        return id == users.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) id ;
+    }
 }
+

@@ -6,8 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.ahmetshin.test.DAO.RoleDAO;
 import ru.ahmetshin.test.domain.Users;
+import ru.ahmetshin.test.repository.RoleRepository;
 import ru.ahmetshin.test.service.UserService;
 
 import static org.hamcrest.Matchers.is;
@@ -19,22 +19,25 @@ public class UserControllerTest {
     @Autowired
     private UserService users;
     @Autowired
-    private RoleDAO roles;
+    private RoleRepository roles;
 
     @Test
     public void WhenGetUserThenReturnUserRoles() throws Exception {
-       // Roles role = this.roles.getRoleById(1L);
+
         Users user = this.users.getUserById(1L);
-      //  this.users.addUser(new Users("art1", "art2", "art3",
-        //        Collections.singletonList(role)));
+
 
         ObjectMapper mapper = new ObjectMapper();
-        assertThat (
+        assertThat(
                 mapper.writeValueAsString(
-                        this.users.getUserById(user.getId())
+                        user
+
                 ),
-                is("{\"id\":1,\"name\":\"vasa\",\"login\":\"vasa\",\"password\":\"vvv\"\"roles\":[{\"id\":0,\"name\":\"admin\",\"users\":null}]}")
+                is("{\"id\":0,\"name\":\"vasa\",\"login\":\"vasa\",\"password\":\"vvv\",\"roles\":[{\"id\":0,\"name\":\"admin\",\"users\":null},{\"id\":0,\"name\":\"oper\",\"users\":null}]}")
         );
 
     }
+
+
+
 }

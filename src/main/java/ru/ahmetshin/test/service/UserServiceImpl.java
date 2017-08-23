@@ -3,9 +3,9 @@ package ru.ahmetshin.test.service;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.ahmetshin.test.DAO.UserDAO;
 import ru.ahmetshin.test.domain.Roles;
 import ru.ahmetshin.test.domain.Users;
+import ru.ahmetshin.test.repository.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,39 +13,41 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDAO userDAO;
+    private UserRepository users;
 
     @Autowired
-    public UserServiceImpl(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UserServiceImpl(UserRepository users) {
+        this.users = users;
     }
 
     @Override
+
     public List<Users> listUsers() {
-        return Lists.newArrayList(this.userDAO.listUsers());
+        return Lists.newArrayList(this.users.findAll());
     }
 
     @Override
     public Users getUserById(long id) {
-        Users user = this.userDAO.getUserById(id);
-
+        Users user = this.users.findOne(id);
         return new Users(user.getName(), user.getLogin(), user.getPassword(), user.getRoles().stream().map(
-                r -> new Roles(r.getName())
-        ).collect(Collectors.toList()));
+                r -> new Roles(r.getName())).collect(Collectors.toList()));
+
     }
 
     @Override
     public void removeUser(long id) {
-        this.userDAO.removeUser(id);
+        this.users.delete(id);
     }
 
     @Override
-    public void addUser(Users user) {
-        this.userDAO.addUser(user);
+    public Users addUser(Users user) {
+        return this.users.save(user);
     }
 
     @Override
-    public void updateUser(Users user) {
-        this.userDAO.updateUser(user);
+    public Users updateUser(Users user) {
+        return this.users.save(user);
     }
+
+
 }

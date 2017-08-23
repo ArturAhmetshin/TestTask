@@ -33,14 +33,13 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public void addUser(@RequestBody Users user) {
-        this.userService.addUser(user);
+    public Users addUser(@RequestBody Users user) {
+        return this.userService.addUser(user);
     }
 
-    @PutMapping ("/edit")
-    public void updateUser(@RequestBody Users user) {
-        this.userService.updateUser(user);
-    }
+   @PutMapping ("/edit")
+  public Users updateUser(@RequestBody Users user) {
+       return this.userService.updateUser(user);}
 
 
 

@@ -10,7 +10,9 @@ public class Roles {
     @Id
     private long id;
     private String name;
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable (name = "user_roles", joinColumns = @JoinColumn(name = "role_id", nullable = false, updatable = false),
+    inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false, updatable = false))
     private List<Users> users;
 
     public Roles() {
@@ -42,5 +44,20 @@ public class Roles {
 
     public void setUsers(List<Users> users) {
         this.users = users;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Roles roles = (Roles) o;
+
+        return id == roles.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) id;
     }
 }
