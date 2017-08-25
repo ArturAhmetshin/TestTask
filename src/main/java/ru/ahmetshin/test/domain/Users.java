@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class Users {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)// autoincrement
+    @GeneratedValue(strategy = GenerationType.AUTO)// autoincrement
     @Id
     private long id;
     private String name;
