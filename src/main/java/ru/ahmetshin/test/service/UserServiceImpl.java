@@ -3,12 +3,11 @@ package ru.ahmetshin.test.service;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.ahmetshin.test.domain.Roles;
-import ru.ahmetshin.test.domain.Users;
+import ru.ahmetshin.test.domain.User;
 import ru.ahmetshin.test.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,15 +21,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
 
-    public List<Users> listUsers() {
+    public List<User> listUsers() {
         return Lists.newArrayList(this.users.findAll());
     }
 
     @Override
-    public Users getUserById(long id) {
-        Users user = this.users.findOne(id);
-        return new Users(user.getName(), user.getLogin(), user.getPassword(), user.getRoles().stream().map(
-                r -> new Roles(r.getName())).collect(Collectors.toList()));
+    public User getUserById(long id) {
+        User user = this.users.findOne(id);
+        return user;
 
     }
 
@@ -40,13 +38,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users addUser(Users user) {
+    @Transactional
+    public User addUser(User user) {
         return this.users.save(user);
     }
 
     @Override
-    public Users updateUser(Users user) {
-        return this.users.saveAndFlush(user);
+    public User updateUser(User user) {
+        return this.users.save(user);
     }
 
 

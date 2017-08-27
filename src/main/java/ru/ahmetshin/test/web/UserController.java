@@ -3,7 +3,7 @@ package ru.ahmetshin.test.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.ahmetshin.test.domain.Users;
+import ru.ahmetshin.test.domain.User;
 import ru.ahmetshin.test.service.UserService;
 
 import java.util.List;
@@ -18,12 +18,12 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public List<Users> listUsers() {
+    public List<User> listUsers() {
         return this.userService.listUsers();
     }
 
     @GetMapping("/get/{id}")
-    public Users getUserById(@PathVariable long id) {
+    public User getUserById(@PathVariable long id) {
         return this.userService.getUserById(id);
     }
 
@@ -33,12 +33,12 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public Users addUser(@RequestBody Users user) {
+    public User addUser(@RequestBody User user) {
         return this.userService.addUser(user);
     }
 
    @PutMapping ("/edit")
-  public Users updateUser(@RequestBody Users user) {
+  public User updateUser(@RequestBody User user) {
        return this.userService.updateUser(user);}
 
 
