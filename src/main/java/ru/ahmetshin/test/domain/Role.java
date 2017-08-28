@@ -1,5 +1,7 @@
 package ru.ahmetshin.test.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class Role {
     private long id;
     private String name;
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private List<User> users;
 
     public Role() {

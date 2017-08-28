@@ -1,5 +1,7 @@
 package ru.ahmetshin.test.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class User {
     @JoinTable(
             name = "user_roles", joinColumns = @JoinColumn(name = "user_id",nullable = false, updatable = false),
             inverseJoinColumns = @JoinColumn(name = "role_id",nullable = false, updatable = false))
+    @JsonManagedReference
     private List<Role> roles;
 
     public User() {
