@@ -48,9 +48,9 @@ public class UserControllerTest {
     }
     @Test
     public void whenGetUserThenUpdateReturnUserRoles() throws Exception {
-        User userUpdate = this.users.getUserById(76L);
-        userUpdate.setName("qwerty1");
-        userUpdate.setRoles(Collections.singletonList(this.roles.findOne(2L)));
+        User userUpdate = this.users.getUserById(58L);
+       // userUpdate.setName("qwerty1");
+        userUpdate.setRoles(Collections.singletonList(this.roles.findOne(1L)));
         this.users.updateUser(userUpdate);
 
     }
